@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaserGrave — Souvenirs gravés pour vos événements</title>
+<meta name="description" content="Cadres, plaques et coffrets gravés au laser pour mariages, EVJF, baptêmes. Personnalisés, faits main en France. Livraison partout.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Variables ────────────────────────────────────────────────────────── */
+:root {
+  --cream:       #FAF6F0;
+  --cream-mid:   #F0E8D8;
+  --cream-dark:  #E0D0B8;
+  --brown:       #271408;
+  --brown-mid:   #5C3A1A;
+  --brown-light: #8B6340;
+  --gold:        #B8860B;
+  --gold-light:  #D4A843;
+  --gold-pale:   #F8EDD0;
+  --metal:       #6B7C93;
+  --white:       #FFFFFF;
+  --shadow:      0 8px 40px rgba(39,20,8,0.12);
+  --shadow-sm:   0 3px 16px rgba(39,20,8,0.08);
+  --radius:      14px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY ────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+.serif-light { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+
+/* ── NAV ───────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(39,20,8,0.97);
+  backdrop-filter: blur(8px);
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(184,134,11,0.25);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+.nav-logo span { color: var(--gold-light); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  background: var(--gold) !important;
+  color: white !important;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-weight: 700 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; }
+@media (max-width: 700px) {
+  .nav-links { gap: 16px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  nav { padding: 0 20px; }
+}
+
+/* ── HERO ──────────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184,134,11,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(92,58,26,0.10) 0%, transparent 60%),
+    var(--cream);
+}
+
+/* Lignes dorées décoratives */
+.hero::before, .hero::after {
+  content: '';
+  position: absolute;
+  border: 1px solid rgba(184,134,11,0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero::before {
+  width: 700px; height: 700px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.hero::after {
+  width: 900px; height: 900px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.hero-eyebrow {
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero h1 {
+  font-size: clamp(38px, 7vw, 80px);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--brown);
+  margin-bottom: 12px;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--brown-mid);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
+  animation: fadeUp 1.0s 0.2s ease both;
+}
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 48px;
+  animation: fadeUp 1.0s 0.3s ease both;
+}
+.hero-badge {
+  background: white;
+  border: 1px solid var(--cream-dark);
+  border-radius: 30px;
+  padding: 7px 16px;
+  font-size: 13px;
+  color: var(--brown-mid);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+}
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 1.1s 0.4s ease both;
+}
+.btn {
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.22s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-gold {
+  background: var(--gold);
+  color: white;
+  box-shadow: 0 4px 20px rgba(184,134,11,0.35);
+}
+.btn-gold:hover { background: var(--brown-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,134,11,0.4); }
+.btn-outline {
+  background: transparent;
+  color: var(--brown);
+  border: 1.5px solid var(--cream-dark);
+}
+.btn-outline:hover { border-color: var(--gold); background: var(--gold-pale); }
+
+/* SVG décoratif dans hero */
+.hero-deco {
+  position: absolute;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.hero-deco-left  { left: 4%; top: 30%; font-size: 120px; transform: rotate(-15deg); }
+.hero-deco-right { right: 4%; bottom: 20%; font-size: 100px; transform: rotate(12deg); }
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--brown-light);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION COMMUNE ──────────────────────────────────────────────────── */
+section { padding: 96px 24px; }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.section-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.section-header h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--brown);
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+.section-header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--brown-mid);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 20px auto 0;
+}
+
+/* ── PRODUITS ──────────────────────────────────────────────────────────── */
+.products-section { background: white; }
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+}
+
+.product-card {
+  border: 1px solid var(--cream-dark);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--cream);
+  transition: all 0.28s;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: var(--gold-light);
+}
+.product-visual {
+  aspect-ratio: 4/3;
+  background: var(--cream-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.product-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(250,246,240,0.5));
+}
+.product-visual-label {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--gold);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 1;
+}
+.product-body { padding: 24px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+.product-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--cream-dark);
+  color: var(--brown-mid);
+}
+.tag.gold  { background: var(--gold-pale); color: var(--gold); }
+.product-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--brown);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.product-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--brown-mid);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex: 1;
+}
+.product-features {
+  list-style: none;
+  margin-bottom: 24px;
+}
+.product-features li {
+  font-size: 13px;
+  color: var(--brown-mid);
+  padding: 4px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.product-features li::before { content: '✦'; color: var(--gold); font-size: 9px; margin-top: 2px; flex-shrink: 0; }
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream-dark);
+}
+.product-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--brown);
+}
+.product-price small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--brown-light);
+  font-family: 'Lato', sans-serif;
+}
+.btn-sm {
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── COMMENT ÇA MARCHE ────────────────────────────────────────────────── */
+.how-section { background: var(--brown); color: var(--cream); }
+.how-section .section-header h2 { color: var(--cream); }
+.how-section .section-header p  { color: rgba(250,246,240,0.65); }
+.how-section .section-eyebrow   { color: var(--gold-light); }
+.how-section .divider           { background: linear-gradient(to right, transparent, var(--gold-light), transparent); }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+@media (max-width: 700px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: calc(16.6% + 20px);
+  right: calc(16.6% + 20px);
+  height: 1px;
+  background: rgba(184,134,11,0.35);
+  pointer-events: none;
+}
+@media (max-width: 700px) { .steps-grid::before { display: none; } }
+
+.step-card {
+  text-align: center;
+  padding: 32px 24px;
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(184,134,11,0.20);
+  transition: all 0.25s;
+}
+.step-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(184,134,11,0.45);
+  transform: translateY(-4px);
+}
+.step-number {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(184,134,11,0.35);
+}
+.step-icon { font-size: 30px; margin-bottom: 14px; }
+.step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.step-desc {
+  font-size: 14px;
+  color: rgba(250,246,240,0.65);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ── TÉMOIGNAGES ──────────────────────────────────────────────────────── */
+.testimonials-section { background: var(--cream-mid); }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 800px) {
+  .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+}
+.testimonial-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--cream-dark);
+}
+.stars { color: var(--gold); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--brown-mid);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.testimonial-author { font-size: 13px; font-weight: 700; color: var(--brown); }
+.testimonial-event  { font-size: 12px; color: var(--brown-light); margin-top: 2px; }
+
+/* ── MATÉRIAUX ────────────────────────────────────────────────────────── */
+.materials-section { background: white; }
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .materials-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+}
+.material-card {
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  border: 1px solid var(--cream-dark);
+  transition: all 0.22s;
+}
+.material-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+.material-card.bois   { background: linear-gradient(135deg, #FFF5EB 0%, #F0DFC0 100%); border-color: #D4A843; }
+.material-card.metal  { background: linear-gradient(135deg, #F0F4F8 0%, #D8E4F0 100%); border-color: var(--metal); }
+.material-card.cuir   { background: linear-gradient(135deg, #F5EDE0 0%, #DCC4A8 100%); border-color: #8B6340; }
+.material-icon        { font-size: 40px; margin-bottom: 12px; }
+.material-name        { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--brown); margin-bottom: 8px; }
+.material-desc        { font-size: 13px; color: var(--brown-mid); line-height: 1.6; font-weight: 300; }
+
+/* ── CTA SECTION ──────────────────────────────────────────────────────── */
+.cta-section {
+  background: linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%);
+  text-align: center;
+  padding: 100px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border: 1px solid rgba(184,134,11,0.15);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-size: clamp(28px, 5vw, 52px);
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+.cta-section h2 em { color: var(--gold-light); font-style: italic; }
+.cta-section p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 300;
+  color: rgba(250,246,240,0.70);
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-section .btn { animation: none; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────── */
+footer {
+  background: var(--brown);
+  color: rgba(250,246,240,0.6);
+  padding: 56px 24px 32px;
+  border-top: 1px solid rgba(184,134,11,0.25);
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+@media (max-width: 700px) {
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+.footer-brand .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 14px;
+}
+.footer-brand .logo span { color: var(--gold-light); }
+.footer-brand p { font-size: 14px; line-height: 1.7; max-width: 300px; font-weight: 300; }
+.footer-col h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  color: rgba(250,246,240,0.9);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a {
+  color: rgba(250,246,240,0.5);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+}
+.footer-bottom a { color: rgba(250,246,240,0.4); text-decoration: none; }
+.footer-bottom a:hover { color: var(--gold-light); }
+.made-with { color: var(--gold); }
+
+/* ── RESPONSIVE MISC ─────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  section { padding: 64px 20px; }
+  .hero   { padding: 80px 20px 60px; }
+  .hero-deco { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">Laser<span>Grave</span></a>
+  <div class="nav-links">
+    <a href="#produits">Produits</a>
+    <a href="#comment">Comment ça marche</a>
+    <a href="#contact">Contact</a>
+    <a href="formulaire.html" class="nav-cta">✨ Personnaliser</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-deco hero-deco-left">💍</div>
+  <div class="hero-deco hero-deco-right">🌿</div>
+
+  <div class="hero-eyebrow">Gravure laser artisanale · Fait main en France</div>
+
+  <h1>Des souvenirs gravés<br>pour <em>vos plus beaux</em><br>jours</h1>
+
+  <p class="hero-subtitle">
+    Mariages, baptêmes, EVJF, EVG — chaque événement mérite<br>
+    un souvenir unique, gravé à votre nom.
+  </p>
+
+  <div class="hero-badges">
+    <div class="hero-badge">💍 Mariage</div>
+    <div class="hero-badge">🕊️ Baptême</div>
+    <div class="hero-badge">👰 EVJF</div>
+    <div class="hero-badge">🍺 EVG</div>
+    <div class="hero-badge">📦 Livraison France entière</div>
+    <div class="hero-badge">⏱️ 3–5 jours ouvrés</div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="formulaire.html" class="btn btn-gold">✨ Personnaliser maintenant</a>
+    <a href="#produits" class="btn btn-outline">Voir les produits</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>↓</span>
+    <span>Découvrir</span>
+  </div>
+</section>
+
+<!-- ── PRODUITS ─────────────────────────────────────────────────────────── -->
+<section class="products-section" id="produits">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Nos créations</div>
+      <h2>3 produits phares,<br>des souvenirs pour toujours</h2>
+      <p>Gravés au laser avec précision, personnalisés selon vos envies.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- PRODUIT 1 -->
+      <div class="product-card">
+        <div class="product-visual" style="background: linear-gradient(135deg, #F5EAD0 0%, #E8D5A8 100%);">
+          🖼️
+          <div class="product-visual-label">Bestseller</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tags">
+            <span class="tag">Bois</span>
+            <span class="tag gold">Mariage · Baptême</span>
+          </div>
+          <div class="product-name">Cadre photo gravé<br>"Souvenir du Jour J"</div>
+          <div class="product-desc">
+            Prénoms, date et message gravés au laser sur bois naturel.
+            Un souvenir qui traversera le temps.
+          </div>
+          <ul class="product-features">
+            <li>Formats 15×10 cm ou 20×15 cm</li>
+            <li>Prénoms + date + message libre</li>
+            <li>Motif décoratif au choix (alliances, fleurs, branches…)</li>
+            <li>Pack cadeaux invités disponible</li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">18 € <small>dès</small></div>
+            <a href="formulaire.html?product=cadre" class="btn-sm btn-gold">Commander →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUIT 2 -->
+      <div class="product-card">
+        <div class="product-visual" style="background: linear-gradient(135deg, #EDF2F7 0%, #CBD5E0 100%);">
+          🪧
+          <div class="product-visual-label">Émotionnel</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tags">
+            <span class="tag">Bois ou Métal</span>
+            <span class="tag gold">Témoin · D.H.</span>
+          </div>
+          <div class="product-name">Plaque Témoin /<br>Demoiselle d'honneur</div>
+          <div class="product-desc">
+            La façon la plus touchante de demander à quelqu'un
+            d'être votre témoin ou de le/la remercier.
+          </div>
+          <ul class="product-features">
+            <li>Support bois chaleureux ou métal brossé élégant</li>
+            <li>Message entièrement personnalisé</li>
+            <li>Gravure laser ultra-précise</li>
+            <li>Pack 2 plaques disponible</li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">22 € <small>dès</small></div>
+            <a href="formulaire.html?product=plaque" class="btn-sm btn-gold">Commander →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUIT 3 -->
+      <div class="product-card">
+        <div class="product-visual" style="background: linear-gradient(135deg, #FFF0F6 0%, #FFD6E7 100%);">
+          🎁
+          <div class="product-visual-label">Cadeau groupe</div>
+        </div>
+        <div class="product-body">
+          <div class="product-tags">
+            <span class="tag">Bois + Accessoires</span>
+            <span class="tag gold">EVJF · EVG</span>
+          </div>
+          <div class="product-name">Coffret EVJF / EVG<br>personnalisé</div>
+          <div class="product-desc">
+            Boîte en bois gravée aux prénoms du groupe,
+            avec accessoires au choix. Le cadeau partagé parfait.
+          </div>
+          <ul class="product-features">
+            <li>Couvercle gravé : prénom + date + groupe</li>
+            <li>Options : briquet gravé, porte-clé, plaque souvenir</li>
+            <li>Coût partagé entre participants</li>
+            <li>Motifs : couronne (EVJF) ou palmier (EVG)</li>
+          </ul>
+          <div class="product-footer">
+            <div class="product-price">42 € <small>dès</small></div>
+            <a href="formulaire.html?product=coffret" class="btn-sm btn-gold">Commander →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── COMMENT ÇA MARCHE ────────────────────────────────────────────────── -->
+<section class="how-section" id="comment">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Processus simple</div>
+      <h2>Comment ça marche</h2>
+      <p>De la commande à la livraison, tout est simple et rapide.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">✏️</div>
+        <div class="step-title">Personnalisez</div>
+        <div class="step-desc">
+          Choisissez votre produit, votre texte, votre motif et votre police.
+          Un aperçu temps réel vous montre le résultat avant commande.
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">🔥</div>
+        <div class="step-title">On grave</div>
+        <div class="step-desc">
+          Votre fichier est gravé au laser avec précision sur le support choisi.
+          Chaque pièce est vérifiée manuellement avant expédition.
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">📦</div>
+        <div class="step-title">Vous recevez</div>
+        <div class="step-desc">
+          Expédition sous 3–5 jours ouvrés partout en France.
+          Emballage soigné. Un souvenir qui vous ressemble.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MATÉRIAUX ────────────────────────────────────────────────────────── -->
+<section class="materials-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Nos matériaux</div>
+      <h2>Gravure sur bois, métal et cuir</h2>
+      <p>Chaque matériau a son caractère. Choisissez celui qui vous ressemble.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="materials-grid">
+      <div class="material-card bois">
+        <div class="material-icon">🪵</div>
+        <div class="material-name">Bois naturel</div>
+        <div class="material-desc">
+          Chaleur, authenticité, aspect artisanal. Gravure foncée très lisible.
+          Idéal pour les cadres, plaques et coffrets.
+        </div>
+      </div>
+      <div class="material-card metal">
+        <div class="material-icon">⚙️</div>
+        <div class="material-name">Métal brossé</div>
+        <div class="material-desc">
+          Élégance moderne et industrielle. Gravure blanche contrastée.
+          Parfait pour les plaques témoin effet luxe.
+        </div>
+      </div>
+      <div class="material-card cuir">
+        <div class="material-icon">🎭</div>
+        <div class="material-name">Cuir véritable</div>
+        <div class="material-desc">
+          Prestige et originalité. Gravure dorée naturelle sur cuir brun.
+          Pour des accessoires exclusifs.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TÉMOIGNAGES ───────────────────────────────────────────────────────── -->
+<section class="testimonials-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Ce qu'ils disent</div>
+      <h2>Des clients ravis</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">
+          "Les cadres étaient sublimes. Nos invités ont adoré,
+          plusieurs m'ont demandé où on les avait commandés !"
+        </div>
+        <div class="testimonial-author">Marie & Thomas</div>
+        <div class="testimonial-event">Mariage — Juin 2024</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">
+          "La plaque pour ma demoiselle d'honneur l'a fait pleurer
+          de joie. Qualité parfaite, livraison rapide."
+        </div>
+        <div class="testimonial-author">Lucie</div>
+        <div class="testimonial-event">Mariage — Octobre 2024</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">
+          "Le coffret EVJF était exactement comme sur l'aperçu.
+          On a toutes fondu devant le résultat !"
+        </div>
+        <div class="testimonial-author">Sophie & les filles</div>
+        <div class="testimonial-event">EVJF — Avril 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINALE ─────────────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="section-inner">
+    <h2>Prêt(e) à créer<br>un souvenir <em>inoubliable</em> ?</h2>
+    <p>Aperçu temps réel · Sans engagement · Réponse sous 24h</p>
+    <a href="formulaire.html" class="btn btn-gold" style="font-size:15px;padding:18px 40px">
+      ✨ Créer ma gravure personnalisée
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">Laser<span>Grave</span></div>
+      <p>
+        Artisan graveur laser basé en France.<br>
+        Spécialisé dans les souvenirs personnalisés<br>
+        pour mariages, baptêmes et événements.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Produits</h4>
+      <ul>
+        <li><a href="formulaire.html?product=cadre">Cadre photo gravé</a></li>
+        <li><a href="formulaire.html?product=plaque">Plaque Témoin / D.H.</a></li>
+        <li><a href="formulaire.html?product=coffret">Coffret EVJF / EVG</a></li>
+        <li><a href="formulaire.html">Personnaliser</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@lasergrave.fr">contact@lasergrave.fr</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Etsy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 LaserGrave — Tous droits réservés</span>
+    <span>Fait <span class="made-with">♥</span> à la main en France</span>
+    <a href="#">Mentions légales</a>
+  </div>
+</footer>
+
+<script>
+// Lire le paramètre ?product= dans l'URL pour pré-sélectionner
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  // Smooth scroll pour les ancres internes
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

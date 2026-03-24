@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personnalisez votre gravure — LaserGrave Événements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ── Variables ─────────────────────────────────────────────────────── */
+:root {
+  --cream:       #F8F3EC;
+  --cream-dark:  #EDE5D8;
+  --brown:       #2C1A0E;
+  --brown-mid:   #5C3D1E;
+  --gold:        #B8860B;
+  --gold-light:  #D4A843;
+  --gold-pale:   #F5E6C0;
+  --metal:       #8A9BB0;
+  --metal-light: #C8D4E0;
+  --green:       #2E7D52;
+  --radius:      10px;
+  --shadow:      0 4px 24px rgba(44,26,14,0.10);
+  --shadow-sm:   0 2px 8px  rgba(44,26,14,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  min-height: 100vh;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header a { color: var(--gold-light); text-decoration: none; font-weight: 300; font-size: 14px; }
+.logo { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: 0.04em; }
+.logo span { color: var(--gold-light); }
+
+/* ── Layout ─────────────────────────────────────────────────────────── */
+.page-title {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+.page-title h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 600;
+  color: var(--brown);
+  margin-bottom: 8px;
+}
+.page-title p {
+  color: var(--brown-mid);
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+@media (max-width: 900px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .preview-panel { order: -1; }
+}
+
+/* ── Section titles ─────────────────────────────────────────────────── */
+.section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gold-pale);
+}
+
+/* ── Event selector ─────────────────────────────────────────────────── */
+.event-selector {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .event-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.event-btn {
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  padding: 12px 6px;
+  cursor: pointer;
+  text-align: center;
+  background: white;
+  transition: all 0.2s;
+  font-family: 'Lato', sans-serif;
+}
+.event-btn:hover { border-color: var(--gold-light); background: var(--gold-pale); }
+.event-btn.active {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.15);
+}
+.event-btn .icon { font-size: 24px; display: block; margin-bottom: 4px; }
+.event-btn .label { font-size: 12px; font-weight: 700; color: var(--brown); }
+
+/* ── Product cards ──────────────────────────────────────────────────── */
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+@media (max-width: 700px) {
+  .product-cards { grid-template-columns: 1fr; }
+}
+.product-card {
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.product-card:hover { border-color: var(--gold-light); transform: translateY(-2px); box-shadow: var(--shadow); }
+.product-card.active {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.15);
+}
+.product-card .badge {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 20px;
+  background: var(--gold);
+  color: white;
+}
+.product-card .badge.metal { background: var(--metal); }
+.product-card .prod-icon { font-size: 28px; margin-bottom: 8px; }
+.product-card .prod-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.product-card .prod-desc { font-size: 12px; color: var(--brown-mid); font-weight: 300; margin-bottom: 8px; }
+.product-card .prod-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+}
+.product-card .prod-price span { font-size: 11px; font-weight: 400; color: var(--brown-mid); }
+
+/* ── Form fields ────────────────────────────────────────────────────── */
+.form-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.field-group { margin-bottom: 20px; }
+.field-group:last-child { margin-bottom: 0; }
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 7px;
+  letter-spacing: 0.03em;
+}
+label .optional { font-weight: 300; color: #999; margin-left: 4px; }
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 7px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--brown);
+  background: var(--cream);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,134,11,0.12);
+  background: white;
+}
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C3D1E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+textarea { resize: vertical; min-height: 70px; }
+
+.char-counter {
+  text-align: right;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 4px;
+}
+.char-counter.warning { color: #E67E22; }
+.char-counter.error   { color: #E74C3C; }
+
+.field-hint {
+  font-size: 12px;
+  color: var(--brown-mid);
+  font-weight: 300;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* ── Toggle group ────────────────────────────────────────────────────── */
+.toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.toggle-btn {
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--brown);
+  background: white;
+  transition: all 0.18s;
+}
+.toggle-btn:hover   { border-color: var(--gold-light); }
+.toggle-btn.active  { border-color: var(--gold); background: var(--gold-pale); font-weight: 700; }
+
+/* ── Support selector ────────────────────────────────────────────────── */
+.support-toggle { display: flex; gap: 10px; }
+.support-card {
+  flex: 1;
+  border: 2px solid var(--cream-dark);
+  border-radius: 8px;
+  padding: 14px 10px;
+  cursor: pointer;
+  text-align: center;
+  background: white;
+  transition: all 0.2s;
+}
+.support-card:hover { border-color: var(--gold-light); }
+.support-card.active.bois  { border-color: #8B5E3C; background: #FFF5EB; }
+.support-card.active.metal { border-color: var(--metal); background: #F0F4F8; }
+.support-card .s-icon  { font-size: 22px; display: block; margin-bottom: 4px; }
+.support-card .s-name  { font-size: 12px; font-weight: 700; }
+.support-card .s-price { font-size: 11px; color: #888; }
+
+/* ── Options dynamiques par produit ─────────────────────────────────── */
+.product-options { display: none; }
+.product-options.visible { display: block; }
+
+/* ── Checkbox ─────────────────────────────────────────────────────── */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+.checkbox-row span { font-size: 14px; }
+
+/* ── Preview panel ───────────────────────────────────────────────────── */
+.preview-panel {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+.preview-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+.preview-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--brown);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#svg-preview-box {
+  background: var(--cream);
+  border: 1px dashed var(--cream-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#svg-preview-box img,
+#svg-preview-box svg {
+  max-width: 100%;
+  max-height: 280px;
+  display: block;
+}
+.preview-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px;
+  color: #aaa;
+  font-size: 13px;
+}
+.spinner {
+  width: 28px; height: 28px;
+  border: 3px solid var(--cream-dark);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.preview-meta {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--brown-mid);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.preview-meta .tag {
+  background: var(--cream);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+}
+.preview-meta .tag.metal { background: var(--metal-light); }
+
+/* Boutons d'action */
+.action-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary {
+  background: var(--gold);
+  color: white;
+}
+.btn-primary:hover { background: var(--brown-mid); transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-secondary {
+  background: white;
+  color: var(--brown);
+  border: 1.5px solid var(--cream-dark);
+}
+.btn-secondary:hover { border-color: var(--gold); background: var(--gold-pale); }
+.btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Prix total ──────────────────────────────────────────────────────── */
+.price-box {
+  background: var(--gold-pale);
+  border: 1px solid var(--gold-light);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.price-box .price-label { font-size: 13px; color: var(--brown-mid); }
+.price-box .price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--brown);
+}
+.price-box .price-value span { font-size: 14px; font-weight: 400; color: var(--brown-mid); }
+
+/* ── Toast ────────────────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--brown);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.error   { background: #C0392B; }
+
+/* ── Stepper ──────────────────────────────────────────────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+  padding: 0 4px;
+}
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+.step::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--cream-dark);
+  z-index: 0;
+}
+.step:last-child::after { display: none; }
+.step-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--cream-dark);
+  color: #aaa;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.step.active   .step-circle { background: var(--gold); color: white; }
+.step.done     .step-circle { background: var(--green); color: white; }
+.step .step-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: #aaa;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.step.active .step-label { color: var(--gold); }
+.step.done   .step-label { color: var(--green); }
+
+/* ── Accessoires coffret ─────────────────────────────────────────────── */
+.accessories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.acc-card {
+  border: 1.5px solid var(--cream-dark);
+  border-radius: 7px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  transition: all 0.18s;
+}
+.acc-card:hover { border-color: var(--gold-light); }
+.acc-card.active { border-color: var(--gold); background: var(--gold-pale); }
+.acc-card input[type="checkbox"] { accent-color: var(--gold); }
+.acc-card .acc-info { flex: 1; }
+.acc-card .acc-name { font-size: 12px; font-weight: 700; }
+.acc-card .acc-price { font-size: 11px; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="logo">Laser<span>Grave</span></div>
+  <a href="index.html">← Retour à l'accueil</a>
+</header>
+
+<!-- ── Page title ──────────────────────────────────────────────────────── -->
+<div class="page-title">
+  <h1>Personnalisez votre gravure</h1>
+  <p>Aperçu temps réel · Livraison partout en France · Fabriqué à la main</p>
+</div>
+
+<!-- ── Main grid ───────────────────────────────────────────────────────── -->
+<div class="main-grid">
+
+  <!-- ════ COLONNE FORMULAIRE ════ -->
+  <div class="form-column">
+
+    <!-- Stepper -->
+    <div class="stepper">
+      <div class="step active" id="step1">
+        <div class="step-circle">1</div>
+        <span class="step-label">Événement</span>
+      </div>
+      <div class="step" id="step2">
+        <div class="step-circle">2</div>
+        <span class="step-label">Produit</span>
+      </div>
+      <div class="step" id="step3">
+        <div class="step-circle">3</div>
+        <span class="step-label">Personnalisation</span>
+      </div>
+      <div class="step" id="step4">
+        <div class="step-circle">4</div>
+        <span class="step-label">Commander</span>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 1 : TYPE D'ÉVÉNEMENT -->
+    <div class="event-selector form-card">
+      <div class="section-label">1 — Votre événement</div>
+      <div class="event-grid">
+        <button class="event-btn active" data-event="mariage" onclick="setEvent(this)">
+          <span class="icon">💍</span><span class="label">Mariage</span>
+        </button>
+        <button class="event-btn" data-event="bapteme" onclick="setEvent(this)">
+          <span class="icon">🕊️</span><span class="label">Baptême</span>
+        </button>
+        <button class="event-btn" data-event="evjf" onclick="setEvent(this)">
+          <span class="icon">👰</span><span class="label">EVJF</span>
+        </button>
+        <button class="event-btn" data-event="evg" onclick="setEvent(this)">
+          <span class="icon">🍺</span><span class="label">EVG</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2 : CHOIX PRODUIT -->
+    <div class="form-card">
+      <div class="section-label">2 — Choisissez votre produit</div>
+      <div class="product-cards">
+
+        <div class="product-card active" data-product="cadre" onclick="selectProduct(this)">
+          <span class="badge" id="cadre-badge">Bois</span>
+          <div class="prod-icon">🖼️</div>
+          <div class="prod-name">Cadre photo gravé</div>
+          <div class="prod-desc">Souvenir du Jour J · prénoms, date, message</div>
+          <div class="prod-price" id="cadre-price">18 € <span>dès</span></div>
+        </div>
+
+        <div class="product-card" data-product="plaque" onclick="selectProduct(this)">
+          <span class="badge" id="plaque-badge">Bois</span>
+          <div class="prod-icon">🪧</div>
+          <div class="prod-name">Plaque Témoin / D.H.</div>
+          <div class="prod-desc">Pour demander ou remercier votre témoin</div>
+          <div class="prod-price" id="plaque-price">22 € <span>dès</span></div>
+        </div>
+
+        <div class="product-card" data-product="coffret" onclick="selectProduct(this)">
+          <span class="badge">Bois</span>
+          <div class="prod-icon">🎁</div>
+          <div class="prod-name">Coffret EVJF / EVG</div>
+          <div class="prod-desc">Boîte gravée + accessoires au choix</div>
+          <div class="prod-price">42 € <span>dès</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3 : OPTIONS PAR PRODUIT -->
+
+    <!-- OPTIONS CADRE PHOTO -->
+    <div class="form-card product-options visible" id="opts-cadre">
+      <div class="section-label">3 — Personnalisation du cadre</div>
+
+      <div class="field-group">
+        <label>Format</label>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-size="cadre_15x10" onclick="setToggle(this,'size')">
+            15×10 cm — 18 €
+          </button>
+          <button class="toggle-btn" data-size="cadre_20x15" onclick="setToggle(this,'size')">
+            20×15 cm — 27 €
+          </button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Prénoms <small class="optional">(Ligne 1 — principale)</small></label>
+        <input type="text" id="line1-cadre" placeholder="ex : Marie &amp; Thomas" maxlength="30"
+               oninput="updateCounter(this,'cnt1-cadre',30); schedulePreview()">
+        <div class="char-counter" id="cnt1-cadre">0 / 30</div>
+      </div>
+
+      <div class="field-group">
+        <label>Date <small class="optional">(Ligne 2)</small></label>
+        <input type="text" id="line2-cadre" placeholder="ex : 15 Juin 2025" maxlength="30"
+               oninput="updateCounter(this,'cnt2-cadre',30); schedulePreview()">
+        <div class="char-counter" id="cnt2-cadre">0 / 30</div>
+      </div>
+
+      <div class="field-group">
+        <label>Message <small class="optional">(Ligne 3 — optionnel)</small></label>
+        <input type="text" id="line3-cadre" placeholder="ex : Pour toujours" maxlength="28"
+               oninput="updateCounter(this,'cnt3-cadre',28); schedulePreview()">
+        <div class="char-counter" id="cnt3-cadre">0 / 28</div>
+      </div>
+
+      <div class="field-group">
+        <label>Motif décoratif</label>
+        <select id="motif-cadre" onchange="schedulePreview()">
+          <option value="alliances">Alliances (mariage)</option>
+          <option value="branches">Branches végétales</option>
+          <option value="fleurs_coins">Fleurs aux coins</option>
+          <option value="etoiles">Étoiles aux coins</option>
+          <option value="coeur">Cœur</option>
+          <option value="sans">Sans motif</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Police</label>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-font="script" onclick="setToggle(this,'font-cadre')">Script</button>
+          <button class="toggle-btn" data-font="classique" onclick="setToggle(this,'font-cadre')">Classique</button>
+          <button class="toggle-btn" data-font="moderne" onclick="setToggle(this,'font-cadre')">Moderne</button>
+          <button class="toggle-btn" data-font="gravure" onclick="setToggle(this,'font-cadre')">Monospace</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-row">
+          <input type="checkbox" id="border-cadre" checked onchange="schedulePreview()">
+          <span>Bordure décorative</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- OPTIONS PLAQUE TÉMOIN -->
+    <div class="form-card product-options" id="opts-plaque">
+      <div class="section-label">3 — Personnalisation de la plaque</div>
+
+      <div class="field-group">
+        <label>Support</label>
+        <div class="support-toggle">
+          <div class="support-card active bois" data-support="plaque_bois" onclick="setSupport(this)">
+            <span class="s-icon">🪵</span>
+            <span class="s-name">Bois naturel</span>
+            <span class="s-price">22 €</span>
+          </div>
+          <div class="support-card metal" data-support="plaque_metal" onclick="setSupport(this)">
+            <span class="s-icon">⚙️</span>
+            <span class="s-name">Métal brossé</span>
+            <span class="s-price">28 €</span>
+          </div>
+        </div>
+        <div class="field-hint" id="support-hint">Bois : chaleur naturelle, gravure foncée. Métal : élégance industrielle, gravure contrastée.</div>
+      </div>
+
+      <div class="field-group">
+        <label>Prénom du destinataire</label>
+        <input type="text" id="line1-plaque" placeholder="ex : Chloé" maxlength="24"
+               oninput="updateCounter(this,'cnt1-plaque',24); schedulePreview()">
+        <div class="char-counter" id="cnt1-plaque">0 / 24</div>
+      </div>
+
+      <div class="field-group">
+        <label>Message</label>
+        <input type="text" id="line2-plaque" placeholder="ex : Veux-tu être ma demoiselle d'honneur ?" maxlength="40"
+               oninput="updateCounter(this,'cnt2-plaque',40); schedulePreview()">
+        <div class="char-counter" id="cnt2-plaque">0 / 40</div>
+        <div class="field-hint">Astuce : "Merci d'être là" · "Ma témoin préférée" · "Vous avez accepté"</div>
+      </div>
+
+      <div class="field-group">
+        <label>Date <small class="optional">(optionnel)</small></label>
+        <input type="text" id="line3-plaque" placeholder="ex : Juin 2025" maxlength="24"
+               oninput="updateCounter(this,'cnt3-plaque',24); schedulePreview()">
+        <div class="char-counter" id="cnt3-plaque">0 / 24</div>
+      </div>
+
+      <div class="field-group">
+        <label>Motif décoratif</label>
+        <select id="motif-plaque" onchange="schedulePreview()">
+          <option value="fleurs_coins">Fleurs aux coins</option>
+          <option value="couronne">Couronne florale</option>
+          <option value="diamant">Diamant / Bague</option>
+          <option value="coeur">Cœur</option>
+          <option value="etoiles">Étoiles aux coins</option>
+          <option value="sans">Sans motif</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Police</label>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-font="script" onclick="setToggle(this,'font-plaque')">Script</button>
+          <button class="toggle-btn" data-font="classique" onclick="setToggle(this,'font-plaque')">Classique</button>
+          <button class="toggle-btn" data-font="gravure" onclick="setToggle(this,'font-plaque')">Gravure</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-row">
+          <input type="checkbox" id="border-plaque" checked onchange="schedulePreview()">
+          <span>Bordure décorative</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- OPTIONS COFFRET EVJF/EVG -->
+    <div class="form-card product-options" id="opts-coffret">
+      <div class="section-label">3 — Personnalisation du coffret</div>
+
+      <div class="field-group">
+        <label>Prénom de la future mariée / du futur marié</label>
+        <input type="text" id="line1-coffret" placeholder="ex : Sophie · Maxime" maxlength="24"
+               oninput="updateCounter(this,'cnt1-coffret',24); schedulePreview()">
+        <div class="char-counter" id="cnt1-coffret">0 / 24</div>
+      </div>
+
+      <div class="field-group">
+        <label>Date de l'événement</label>
+        <input type="text" id="line2-coffret" placeholder="ex : EVJF 20 Mai 2025" maxlength="28"
+               oninput="updateCounter(this,'cnt2-coffret',28); schedulePreview()">
+        <div class="char-counter" id="cnt2-coffret">0 / 28</div>
+      </div>
+
+      <div class="field-group">
+        <label>Prénoms du groupe <small class="optional">(séparés par · )</small></label>
+        <input type="text" id="line3-coffret" placeholder="ex : Lucie · Eva · Camille" maxlength="36"
+               oninput="updateCounter(this,'cnt3-coffret',36); schedulePreview()">
+        <div class="char-counter" id="cnt3-coffret">0 / 36</div>
+        <div class="field-hint">Ces prénoms seront gravés sur le couvercle du coffret.</div>
+      </div>
+
+      <div class="field-group">
+        <label>Motif décoratif</label>
+        <select id="motif-coffret" onchange="schedulePreview()">
+          <option value="couronne">Couronne florale (EVJF)</option>
+          <option value="palmier">Palmier (EVG)</option>
+          <option value="coeur">Cœur</option>
+          <option value="alliances">Alliances</option>
+          <option value="etoiles">Étoiles aux coins</option>
+          <option value="sans">Sans motif</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Police</label>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-font="script" onclick="setToggle(this,'font-coffret')">Script</button>
+          <button class="toggle-btn" data-font="moderne" onclick="setToggle(this,'font-coffret')">Moderne</button>
+          <button class="toggle-btn" data-font="classique" onclick="setToggle(this,'font-coffret')">Classique</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Accessoires inclus dans le coffret</label>
+        <div class="accessories-grid">
+          <label class="acc-card active" id="acc-boite">
+            <input type="checkbox" checked disabled>
+            <div class="acc-info">
+              <div class="acc-name">📦 Boîte gravée</div>
+              <div class="acc-price">Inclus</div>
+            </div>
+          </label>
+          <label class="acc-card" id="acc-briquet" onclick="toggleAcc(this,'briquet')">
+            <input type="checkbox" id="cb-briquet">
+            <div class="acc-info">
+              <div class="acc-name">🔥 Briquet gravé</div>
+              <div class="acc-price">+12 €</div>
+            </div>
+          </label>
+          <label class="acc-card" id="acc-pcle" onclick="toggleAcc(this,'pcle')">
+            <input type="checkbox" id="cb-pcle">
+            <div class="acc-info">
+              <div class="acc-name">🔑 Porte-clé gravé</div>
+              <div class="acc-price">+8 €</div>
+            </div>
+          </label>
+          <label class="acc-card" id="acc-plaque" onclick="toggleAcc(this,'plaque-acc')">
+            <input type="checkbox" id="cb-plaque-acc">
+            <div class="acc-info">
+              <div class="acc-name">🪧 Plaque souvenir</div>
+              <div class="acc-price">+10 €</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="checkbox-row">
+          <input type="checkbox" id="border-coffret" checked onchange="schedulePreview()">
+          <span>Bordure décorative</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- COMMENTAIRE COMMUN -->
+    <div class="form-card">
+      <div class="section-label">4 — Informations complémentaires</div>
+
+      <div class="field-group">
+        <label>Commentaire / demande spéciale <small class="optional">(optionnel)</small></label>
+        <textarea id="comment" placeholder="Ex : Emballage cadeau, urgence livraison, police différente souhaitée..." rows="3"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Votre nom</label>
+        <input type="text" id="customer-name" placeholder="Marie Dupont">
+      </div>
+
+      <div class="field-group">
+        <label>Votre e-mail</label>
+        <input type="text" id="customer-email" placeholder="marie@email.fr">
+      </div>
+    </div>
+
+  </div><!-- /form-column -->
+
+  <!-- ════ COLONNE APERÇU ════ -->
+  <div class="preview-panel">
+
+    <!-- Aperçu SVG -->
+    <div class="preview-card">
+      <h3>🔍 Aperçu de votre gravure</h3>
+      <div id="svg-preview-box">
+        <div class="preview-loading">
+          <div style="font-size:40px">✏️</div>
+          <div>Remplissez le formulaire<br>pour voir l'aperçu</div>
+        </div>
+      </div>
+      <div class="preview-meta" id="preview-meta" style="display:none">
+        <span class="tag" id="meta-product">—</span>
+        <span class="tag" id="meta-dim">—</span>
+        <span class="tag" id="meta-material">—</span>
+      </div>
+    </div>
+
+    <!-- Prix -->
+    <div class="price-box">
+      <div>
+        <div class="price-label">Prix estimé TTC</div>
+        <div style="font-size:11px;color:#aaa;margin-top:2px">Hors frais de port</div>
+      </div>
+      <div class="price-value" id="price-display">— <span>€</span></div>
+    </div>
+
+    <!-- Actions -->
+    <button class="action-btn btn-secondary" id="btn-download" disabled onclick="downloadSVG()">
+      ⬇️ Télécharger SVG (LightBurn)
+    </button>
+    <button class="action-btn btn-primary" onclick="submitOrder()">
+      ✨ Envoyer ma commande
+    </button>
+
+    <!-- Rassurance -->
+    <div style="font-size:12px;color:#999;text-align:center;line-height:1.7;margin-top:12px">
+      🔒 Commande sans paiement en ligne<br>
+      📬 Vous recevrez un récapitulatif par e-mail<br>
+      ⏱️ Délai : 3–5 jours ouvrés · France entière
+    </div>
+
+  </div><!-- /preview-panel -->
+
+</div><!-- /main-grid -->
+
+<!-- Toast notification -->
+<div class="toast" id="toast">
+  <span id="toast-icon">✅</span>
+  <span id="toast-msg">Message</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── CONFIG ─────────────────────────────────────────────────────────────
+   ⚠️ Changer cette URL une fois déployé sur Railway :
+   const API_URL = "https://lasergrave-xxxx.railway.app";
+   Pour tester en local :
+   const API_URL = "http://localhost:5000";
+──────────────────────────────────────────────────────────────────────── */
+const API_URL = "http://localhost:5000";
+
+/* ── État global ──────────────────────────────────────────────────────── */
+const state = {
+  event:      "mariage",
+  product:    "cadre",
+  productId:  "cadre_15x10",
+  material:   "bois",
+  fontCadre:  "script",
+  fontPlaque: "script",
+  fontCoffret:"script",
+  support:    "plaque_bois",
+  accessories: { briquet: false, pcle: false, "plaque-acc": false },
+  lastSvgBlob: null,
+  debounceTimer: null,
+};
+
+/* ── Prix catalogue ───────────────────────────────────────────────────── */
+const PRICES = {
+  cadre_15x10: 18, cadre_20x15: 27,
+  plaque_bois: 22, plaque_metal: 28,
+  coffret_evjf: 42,
+};
+const ACC_PRICES = { briquet: 12, pcle: 8, "plaque-acc": 10 };
+
+/* ── EVENT TYPE ───────────────────────────────────────────────────────── */
+function setEvent(btn) {
+  document.querySelectorAll('.event-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  state.event = btn.dataset.event;
+
+  // Adapter motifs par défaut
+  const defaults = {
+    mariage: { motifCadre: 'alliances', motifPlaque: 'fleurs_coins', motifCoffret: 'alliances', font: 'script' },
+    bapteme: { motifCadre: 'etoiles',   motifPlaque: 'etoiles',      motifCoffret: 'etoiles',   font: 'classique' },
+    evjf:    { motifCadre: 'couronne',  motifPlaque: 'couronne',     motifCoffret: 'couronne',  font: 'script' },
+    evg:     { motifCadre: 'palmier',   motifPlaque: 'diamant',      motifCoffret: 'palmier',   font: 'moderne' },
+  };
+  const d = defaults[state.event] || defaults.mariage;
+  setSelectVal('motif-cadre',   d.motifCadre);
+  setSelectVal('motif-plaque',  d.motifPlaque);
+  setSelectVal('motif-coffret', d.motifCoffret);
+
+  markStep(1, 'done'); markStep(2, 'active');
+  schedulePreview();
+}
+
+/* ── PRODUCT SELECTION ────────────────────────────────────────────────── */
+function selectProduct(card) {
+  document.querySelectorAll('.product-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  state.product = card.dataset.product;
+
+  document.querySelectorAll('.product-options').forEach(o => o.classList.remove('visible'));
+  const opts = document.getElementById('opts-' + state.product);
+  if (opts) opts.classList.add('visible');
+
+  updateProductId();
+  updatePrice();
+  markStep(2, 'done'); markStep(3, 'active');
+  schedulePreview();
+}
+
+function updateProductId() {
+  if (state.product === 'cadre') {
+    const active = document.querySelector('#opts-cadre .toggle-btn[data-size].active');
+    state.productId = active ? active.dataset.size : 'cadre_15x10';
+  } else if (state.product === 'plaque') {
+    state.productId = state.support;
+  } else {
+    state.productId = 'coffret_evjf';
+  }
+  state.material = state.productId.includes('metal') ? 'metal' : 'bois';
+}
+
+/* ── SUPPORT (plaque) ─────────────────────────────────────────────────── */
+function setSupport(card) {
+  document.querySelectorAll('.support-card').forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+  state.support = card.dataset.support;
+  state.material = state.support === 'plaque_metal' ? 'metal' : 'bois';
+
+  const badge = document.getElementById('plaque-badge');
+  if (badge) badge.textContent = state.material === 'metal' ? 'Métal' : 'Bois';
+  if (badge) badge.className = 'badge ' + (state.material === 'metal' ? 'metal' : '');
+
+  const hint = document.getElementById('support-hint');
+  if (hint) hint.textContent = state.material === 'metal'
+    ? 'Métal brossé : finition élégante et industrielle. Gravure contrastée, très précise.'
+    : 'Bois naturel : chaleur et authenticité. Gravure foncée, aspect artisanal.';
+
+  const priceEl = document.getElementById('plaque-price');
+  if (priceEl) priceEl.innerHTML = (state.support === 'plaque_metal' ? '28' : '22') + ' € <span>dès</span>';
+
+  updateProductId();
+  updatePrice();
+  schedulePreview();
+}
+
+/* ── TOGGLE BUTTONS (size, font) ──────────────────────────────────────── */
+function setToggle(btn, group) {
+  const parent = btn.closest('.toggle-group, .field-group');
+  if (!parent) return;
+  parent.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  if (group === 'size') {
+    state.productId = btn.dataset.size;
+    updatePrice();
+  } else if (group === 'font-cadre')   state.fontCadre   = btn.dataset.font;
+  else if (group === 'font-plaque')    state.fontPlaque  = btn.dataset.font;
+  else if (group === 'font-coffret')   state.fontCoffret = btn.dataset.font;
+
+  schedulePreview();
+}
+
+/* ── ACCESSOIRES COFFRET ──────────────────────────────────────────────── */
+function toggleAcc(card, key) {
+  state.accessories[key] = !state.accessories[key];
+  card.classList.toggle('active', state.accessories[key]);
+  const cb = card.querySelector('input[type="checkbox"]');
+  if (cb) cb.checked = state.accessories[key];
+  updatePrice();
+}
+
+/* ── PRIX ─────────────────────────────────────────────────────────────── */
+function updatePrice() {
+  updateProductId();
+  let price = PRICES[state.productId] || 0;
+  if (state.product === 'coffret') {
+    for (const [k, on] of Object.entries(state.accessories)) {
+      if (on) price += ACC_PRICES[k] || 0;
+    }
+  }
+  document.getElementById('price-display').innerHTML =
+    price + ' <span>€</span>';
+}
+
+/* ── CHAR COUNTER ─────────────────────────────────────────────────────── */
+function updateCounter(input, counterId, max) {
+  const n = input.value.length;
+  const el = document.getElementById(counterId);
+  if (!el) return;
+  el.textContent = n + ' / ' + max;
+  el.className = 'char-counter' + (n >= max ? ' error' : n >= max * 0.85 ? ' warning' : '');
+}
+
+/* ── PREVIEW (debounced) ──────────────────────────────────────────────── */
+function schedulePreview() {
+  clearTimeout(state.debounceTimer);
+  state.debounceTimer = setTimeout(fetchPreview, 450);
+}
+
+function getFormData() {
+  updateProductId();
+  const p = state.product;
+  const fontMap = { cadre: state.fontCadre, plaque: state.fontPlaque, coffret: state.fontCoffret };
+
+  const get = id => (document.getElementById(id) || {}).value || '';
+
+  const line1 = get(`line1-${p}`);
+  const line2 = get(`line2-${p}`);
+  const line3 = get(`line3-${p}`);
+  const motif = get(`motif-${p}`);
+  const border = (document.getElementById(`border-${p}`) || { checked: true }).checked;
+
+  return {
+    product_id:  state.productId,
+    line1, line2, line3,
+    font_id:     fontMap[p] || 'script',
+    motif_id:    motif || 'sans',
+    border,
+    event_type:  state.event,
+  };
+}
+
+async function fetchPreview() {
+  const data = getFormData();
+  if (!data.line1) {
+    document.getElementById('svg-preview-box').innerHTML = `
+      <div class="preview-loading">
+        <div style="font-size:40px">✏️</div>
+        <div>Saisissez au moins la ligne 1<br>pour voir l'aperçu</div>
+      </div>`;
+    document.getElementById('btn-download').disabled = true;
+    document.getElementById('preview-meta').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('svg-preview-box').innerHTML = `
+    <div class="preview-loading"><div class="spinner"></div>Génération en cours…</div>`;
+
+  try {
+    const res = await fetch(`${API_URL}/preview`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) throw new Error('Erreur API');
+
+    const blob = await res.blob();
+    state.lastSvgBlob = blob;
+    const url = URL.createObjectURL(blob);
+
+    document.getElementById('svg-preview-box').innerHTML =
+      `<img src="${url}" alt="Aperçu gravure" style="max-width:100%;max-height:300px;display:block;margin:auto;padding:12px">`;
+
+    // Méta
+    const pMeta = document.getElementById('preview-meta');
+    pMeta.style.display = 'flex';
+    const prod = PRODUCTS_META[state.productId] || {};
+    document.getElementById('meta-product').textContent = prod.label || state.productId;
+    document.getElementById('meta-dim').textContent = prod.dim || '';
+    const matEl = document.getElementById('meta-material');
+    matEl.textContent = state.material === 'metal' ? '⚙️ Métal' : '🪵 Bois';
+    matEl.className = 'tag ' + (state.material === 'metal' ? 'metal' : '');
+
+    document.getElementById('btn-download').disabled = false;
+    markStep(3, 'done'); markStep(4, 'active');
+
+  } catch (err) {
+    document.getElementById('svg-preview-box').innerHTML = `
+      <div class="preview-loading">
+        <div style="font-size:32px">⚠️</div>
+        <div style="color:#c0392b">Aperçu indisponible<br><small>Vérifiez que le serveur est démarré</small></div>
+      </div>`;
+  }
+}
+
+const PRODUCTS_META = {
+  cadre_15x10:  { label: 'Cadre 15×10',  dim: '150×100 mm' },
+  cadre_20x15:  { label: 'Cadre 20×15',  dim: '200×150 mm' },
+  plaque_bois:  { label: 'Plaque Bois',  dim: '150×100 mm' },
+  plaque_metal: { label: 'Plaque Métal', dim: '150×100 mm' },
+  coffret_evjf: { label: 'Coffret',      dim: '200×150 mm' },
+};
+
+/* ── DOWNLOAD SVG ─────────────────────────────────────────────────────── */
+function downloadSVG() {
+  if (!state.lastSvgBlob) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(state.lastSvgBlob);
+  const d = getFormData();
+  a.download = `lasergrave_${d.product_id}_${d.line1.replace(/[^a-zA-Z0-9]/g,'_').slice(0,20)}.svg`;
+  a.click();
+  showToast('✅', 'SVG téléchargé — ouvrir dans LightBurn', 'success');
+}
+
+/* ── SUBMIT ORDER ─────────────────────────────────────────────────────── */
+async function submitOrder() {
+  const name  = (document.getElementById('customer-name')  || {}).value || '';
+  const email = (document.getElementById('customer-email') || {}).value || '';
+  const data  = getFormData();
+
+  if (!data.line1) { showToast('⚠️', 'Remplissez au moins le prénom / texte principal', 'error'); return; }
+  if (!name)        { showToast('⚠️', 'Indiquez votre nom', 'error'); return; }
+  if (!email || !email.includes('@')) { showToast('⚠️', 'Indiquez un e-mail valide', 'error'); return; }
+
+  const payload = {
+    ...data,
+    customer_name:  name,
+    customer_email: email,
+    comment: (document.getElementById('comment') || {}).value || '',
+    accessories: state.accessories,
+    prix_total: document.getElementById('price-display').textContent.replace(/[^\d]/g,''),
+  };
+
+  // Ici vous pouvez connecter à un webhook Make / n8n
+  // Pour l'instant, on simule et on montre un récap
+  console.log('Commande prête :', payload);
+  showToast('✨', 'Commande envoyée ! Vous recevrez une confirmation par e-mail.', 'success');
+
+  // Si vous avez un webhook Make/n8n, décommentez :
+  /*
+  try {
+    await fetch('VOTRE_WEBHOOK_URL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch(e) { console.error(e); }
+  */
+}
+
+/* ── STEPPER ──────────────────────────────────────────────────────────── */
+function markStep(n, status) {
+  const el = document.getElementById('step' + n);
+  if (!el) return;
+  el.className = 'step ' + status;
+}
+
+/* ── TOAST ────────────────────────────────────────────────────────────── */
+function showToast(icon, msg, type = '') {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent  = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.className = 'toast ' + type, 3200);
+}
+
+/* ── UTILS ────────────────────────────────────────────────────────────── */
+function setSelectVal(id, val) {
+  const s = document.getElementById(id);
+  if (!s) return;
+  for (const opt of s.options) if (opt.value === val) { s.value = val; return; }
+}
+
+/* ── INIT ─────────────────────────────────────────────────────────────── */
+updatePrice();
+</script>
+</body>
+</html>
